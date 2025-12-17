@@ -1,0 +1,402 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGuardian Security Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>WebGuardian - Threat Intelligence Dashboard</h1>
+    </header>
+
+    <main>
+        <section id="scanner">
+            <h2>Check URL Security</h2>
+            <input type="text" id="url-input" placeholder="Enter URL">
+            <button id="scan-btn">Scan</button>
+        </section>
+
+        <section id="results">
+            <h2>Scan Results</h2>
+            <div id="output"></div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+29/6/25
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGuardian Security Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>WebGuardian Security Dashboard</h1>
+        <p>Scan and analyze URLs for security threats</p>
+    </header>
+
+    <main>
+        <section class="scanner">
+            <h2>Enter URL for Security Check</h2>
+            <input type="url" id="url-input" placeholder="Enter a URL..." required>
+            <button onclick="scanURL()">Scan</button>
+        </section>
+
+        <section id="results" class="hidden">
+            <h2>Scan Results</h2>
+            <p id="status"></p>
+
+            <canvas id="resultChart"></canvas>  Chart.js Graph -
+            
+            <h3>Detailed Report</h3>
+            <table id="engine-results">
+                <thead>
+                    <tr>
+                        <th>Security Vendor</th>
+                        <th>Detection</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
+-- 2 modules 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGuardian Security Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>WebGuardian Security Dashboard</h1>
+        <p>Scan and analyze URLs for security threats + monitor live network traffic</p>
+    </header>
+
+    <main>
+        !-- URL Scanner (Module 1) --
+        <section class="scanner">
+            <h2>Enter URL for Security Check</h2>
+            <input type="url" id="url-input" placeholder="Enter a URL..." required>
+            <button onclick="scanURL()">Scan</button>
+        </section>
+
+        <section id="results" class="hidden">
+            <h2>Scan Results</h2>
+            <p id="status"></p>
+
+            <canvas id="resultChart"></canvas>
+
+            <h3>Detailed Report</h3>
+            <table id="engine-results">
+                <thead>
+                    <tr>
+                        <th>Security Vendor</th>
+                        <th>Detection</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Network Monitor (Module 2) --
+        <section class="scanner">
+            <h2>Real-Time Traffic Monitor</h2>
+            <button onclick="analyzeTraffic()">Start Monitoring</button>
+            <div id="traffic-output"></div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+2/8/25 modified
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGuardian Security Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0f2027;
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    main {
+      padding: 2rem;
+      display: grid;
+      gap: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .scanner {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    input[type="url"],
+    input[type="file"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .hidden {
+      display: none;
+    }
+    #results, #file-scan-result, #traffic-output {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 5px solid #0077cc;
+      background: #eef3f9;
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WebGuardian Security Dashboard</h1>
+    <p>Scan URLs • Monitor Traffic • Pre-Scan Files with AI</p>
+  </header>
+
+  <main>
+    <!-- 🌐 Module 1: URL Scanner -
+    <section class="scanner">
+      <h2>🔗 Module 1: URL Scanner (VirusTotal)</h2>
+      <input type="url" id="url-input" placeholder="Enter a URL..." required />
+      <button onclick="scanURL()">Scan URL</button>
+    </section>
+
+    <section id="results" class="hidden">
+      <h2>🔍 Scan Results</h2>
+      <p id="status"></p>
+      <canvas id="resultChart"></canvas>
+
+      <h3>Detailed Vendor Report</h3>
+      <table id="engine-results">
+        <thead>
+          <tr>
+            <th>Security Vendor</th>
+            <th>Detection</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- 📡 Module 2: Network Traffic Monitor --
+    <section class="scanner">
+      <h2>📡 Module 2: Real-Time Traffic Monitor</h2>
+      <button onclick="analyzeTraffic()">Start Monitoring</button>
+      <div id="traffic-output"></div>
+    </section>
+
+    <!-- 📁 Module 3: File Malware Scanner --
+    <section class="scanner">
+      <h2>📁 Module 3: Upload File for Malware Scan (AI-Based)</h2>
+      <input type="file" id="file-input" />
+      <button onclick="scanFile()">Scan File</button>
+      <div id="file-scan-result" class="hidden"></div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGuardian Security Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0f2027;
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    main {
+      padding: 2rem;
+      display: grid;
+      gap: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .scanner {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    input[type="url"],
+    input[type="file"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .hidden {
+      display: none;
+    }
+    #results, #file-scan-result, #traffic-output {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 5px solid #0077cc;
+      background: #eef3f9;
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WebGuardian Security Dashboard</h1>
+    <p>Scan URLs • Monitor Traffic • Pre-Scan Files with AI</p>
+  </header>
+
+  <main>
+    <!-- 🌐 Module 1: ML-Based URL Scanner -->
+    <section class="scanner">
+      <h2>🔗 Module 1: URL Scanner (ML-Based)</h2>
+      <input type="url" id="url-input" placeholder="Enter a URL..." required />
+      <button onclick="scanURL()">Scan URL</button>
+    </section>
+
+    <section id="results" class="hidden">
+      <h2>🔍 Scan Results</h2>
+      <p id="status"></p>
+
+      <h3>Extracted URL Features</h3>
+      <table id="feature-results">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- 📡 Module 2: Network Traffic Monitor -->
+    <section class="scanner">
+      <h2>📡 Module 2: Real-Time Traffic Monitor</h2>
+      <button onclick="analyzeTraffic()">Start Monitoring</button>
+      <div id="traffic-output"></div>
+    </section>
+
+    <!-- 📁 Module 3: File Malware Scanner -->
+    <section class="scanner">
+      <h2>📁 Module 3: Upload File for Malware Scan (AI-Based)</h2>
+      <input type="file" id="file-input" />
+      <button onclick="scanFile()">Scan File</button>
+      <div id="file-scan-result" class="hidden"></div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
+

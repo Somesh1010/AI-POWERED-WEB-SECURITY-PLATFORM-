@@ -1,0 +1,14 @@
+Student Report - Network Security Lab
+
+Name: Jayanth Reddy
+Roll No: CS20A123
+Course: Cybersecurity Foundations
+
+This document contains lab report details for Week 5:
+- Tested URL scanning with Flask and VirusTotal API
+- Monitored network anomalies using Isolation Forest
+- Discussed entropy and malware classification
+- Developed web app dashboard for threat display
+
+Submitted to: Dept. of Computer Science
+Date: 29-June-2025
